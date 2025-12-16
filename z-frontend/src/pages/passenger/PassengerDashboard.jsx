@@ -23,11 +23,9 @@ const PassengerDashboard = () => {
     e.preventDefault();
     setIsSearching(true);
 
-    // Якщо обидва поля порожні - показати всі рейси
     if (!searchParams.startPoint && !searchParams.endPoint) {
       await fetchAvailableTrips();
     } else {
-      // Інакше шукати з фільтрами
       await searchTrips(searchParams.startPoint, searchParams.endPoint);
     }
 
@@ -73,7 +71,7 @@ const PassengerDashboard = () => {
   return (
     <div className="min-h-screen bg-base-200 py-8">
       <div className="container mx-auto px-4 max-w-6xl">
-        {/* Header */}
+
         <div className="mb-8">
           <h1 className="text-3xl font-bold">Доступні рейси</h1>
           <p className="text-base-content/60 mt-1">
@@ -81,7 +79,6 @@ const PassengerDashboard = () => {
           </p>
         </div>
 
-        {/* Search Form */}
         <div className="card bg-base-100 shadow-xl mb-8">
           <div className="card-body">
             <h2 className="card-title text-xl mb-4">
@@ -91,7 +88,7 @@ const PassengerDashboard = () => {
 
             <form onSubmit={handleSearch} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Start Point */}
+
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium">Початкова точка</span>
@@ -113,7 +110,6 @@ const PassengerDashboard = () => {
                   </div>
                 </div>
 
-                {/* End Point */}
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium">Кінцева точка</span>
@@ -136,7 +132,6 @@ const PassengerDashboard = () => {
                 </div>
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-2">
                 <button
                   type="submit"
@@ -163,7 +158,6 @@ const PassengerDashboard = () => {
                 </button>
               </div>
 
-              {/* Info */}
               <div className="alert alert-info">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -186,7 +180,6 @@ const PassengerDashboard = () => {
           </div>
         </div>
 
-        {/* Results Stats */}
         {!isLoading && (
           <div className="stats shadow mb-6 w-full">
             <div className="stat">
@@ -201,7 +194,6 @@ const PassengerDashboard = () => {
           </div>
         )}
 
-        {/* Trips List */}
         <div className="space-y-4">
           {isLoading ? (
             <div className="flex justify-center py-12">
@@ -240,9 +232,8 @@ const PassengerDashboard = () => {
                         </span>
                       </div>
 
-                      {/* Trip Details */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {/* Date & Time */}
+
                         <div className="flex items-center gap-2">
                           <Calendar className="size-5 text-primary" />
                           <div>
@@ -255,7 +246,6 @@ const PassengerDashboard = () => {
                           </div>
                         </div>
 
-                        {/* Driver */}
                         <div className="flex items-center gap-2">
                           <User className="size-5 text-primary" />
                           <div>
@@ -266,7 +256,6 @@ const PassengerDashboard = () => {
                           </div>
                         </div>
 
-                        {/* Available Seats */}
                         <div className="flex items-center gap-2">
                           <Users className="size-5 text-success" />
                           <div>
@@ -279,7 +268,6 @@ const PassengerDashboard = () => {
                           </div>
                         </div>
 
-                        {/* Price */}
                         <div className="flex items-center gap-2">
                           <DollarSign className="size-5 text-success" />
                           <div>
@@ -294,7 +282,6 @@ const PassengerDashboard = () => {
                       </div>
                     </div>
 
-                    {/* Action Button (for future booking) */}
                     <div className="flex lg:flex-col gap-2">
                       <div className="badge badge-lg badge-primary">
                         {trip.pricePerSeat} грн

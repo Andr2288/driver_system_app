@@ -91,7 +91,6 @@ const DriverDashboard = () => {
                     </div>
                 </div>
 
-                {/* Stats */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
                     <div className="stats shadow">
                         <div className="stat">
@@ -115,7 +114,6 @@ const DriverDashboard = () => {
                     </div>
                 </div>
 
-                {/* Tabs */}
                 <div className="tabs tabs-boxed mb-6">
                     <button
                         className={`tab ${activeTab === "routes" ? "tab-active" : ""}`}
@@ -133,7 +131,6 @@ const DriverDashboard = () => {
                     </button>
                 </div>
 
-                {/* Content */}
                 {activeTab === "routes" && (
                     <div className="space-y-4">
                         {routesLoading ? (

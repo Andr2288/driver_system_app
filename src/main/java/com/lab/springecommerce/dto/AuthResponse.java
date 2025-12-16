@@ -1,7 +1,6 @@
 package com.lab.springecommerce.dto;
 
 /*
-    @project   spring-ecommerce
     @class     AuthResponse
     @version   1.0.0
     @since     15.11.2025 - 00:53
@@ -13,7 +12,7 @@ public class AuthResponse {
     private String token;
     private String name;
     private String email;
-    private UserRole role; // DRIVER або PASSENGER
+    private UserRole role;
 
     public AuthResponse() {}
 
@@ -24,7 +23,6 @@ public class AuthResponse {
         this.role = role;
     }
 
-    // Getters and Setters
     public String getToken() {
         return token;
     }

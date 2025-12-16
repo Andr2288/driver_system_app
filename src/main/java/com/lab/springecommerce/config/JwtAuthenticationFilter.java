@@ -1,7 +1,6 @@
 package com.lab.springecommerce.config;
 
 /*
-    @project   spring-ecommerce
     @class     JwtAuthenticationFilter
     @version   1.0.0
     @since     17.11.2025
@@ -51,19 +50,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             
             if (jwtUtil.validateToken(token, username)) {
-                // Створюємо UserDetails (простий варіант)
                 UserDetails userDetails = User.builder()
                         .username(username)
-                        .password("") // Пароль не потрібен для JWT
-                        .authorities(new ArrayList<>()) // Можна додати ролі пізніше
+                        .password("")
+                        .authorities(new ArrayList<>())
                         .build();
 
-                // Створюємо Authentication
-                UsernamePasswordAuthenticationToken authToken = 
+                UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 
-                // Встановлюємо в Security Context
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }

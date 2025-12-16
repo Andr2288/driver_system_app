@@ -1,7 +1,6 @@
 package com.lab.springecommerce.controller;
 
 /*
-    @project   spring-ecommerce
     @class     TripController
     @version   1.0.0
     @since     12/16/2025 - 22:26
@@ -28,7 +27,6 @@ public class TripController {
 
     // ===== DRIVER ENDPOINTS =====
 
-    // Створити рейс (тільки DRIVER)
     @PostMapping
     public ResponseEntity<TripResponse> createTrip(@RequestBody TripRequest request) {
         String driverName = getCurrentUsername();
@@ -36,7 +34,6 @@ public class TripController {
         return ResponseEntity.ok(response);
     }
 
-    // Редагувати рейс (тільки DRIVER)
     @PutMapping("/{id}")
     public ResponseEntity<TripResponse> updateTrip(@PathVariable Long id, @RequestBody TripRequest request) {
         String driverName = getCurrentUsername();
@@ -44,7 +41,6 @@ public class TripController {
         return ResponseEntity.ok(response);
     }
 
-    // Видалити рейс (тільки DRIVER)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTrip(@PathVariable Long id) {
         String driverName = getCurrentUsername();
@@ -52,7 +48,6 @@ public class TripController {
         return ResponseEntity.noContent().build();
     }
 
-    // Отримати мої рейси (тільки DRIVER)
     @GetMapping("/my")
     public ResponseEntity<List<TripResponse>> getMyTrips() {
         String driverName = getCurrentUsername();
@@ -62,14 +57,12 @@ public class TripController {
 
     // ===== PASSENGER ENDPOINTS =====
 
-    // Отримати всі доступні рейси
     @GetMapping
     public ResponseEntity<List<TripResponse>> getAllAvailableTrips() {
         List<TripResponse> trips = tripService.getAllAvailableTrips();
         return ResponseEntity.ok(trips);
     }
 
-    // Пошук рейсів за маршрутом
     @GetMapping("/search")
     public ResponseEntity<List<TripResponse>> searchTrips(
             @RequestParam(required = false) String startPoint,
@@ -78,14 +71,12 @@ public class TripController {
         return ResponseEntity.ok(trips);
     }
 
-    // Отримати рейс за ID
     @GetMapping("/{id}")
     public ResponseEntity<TripResponse> getTripById(@PathVariable Long id) {
         TripResponse trip = tripService.getTripById(id);
         return ResponseEntity.ok(trip);
     }
 
-    // Helper method
     private String getCurrentUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {

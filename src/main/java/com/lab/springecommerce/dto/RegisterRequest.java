@@ -1,7 +1,6 @@
 package com.lab.springecommerce.dto;
 
 /*
-    @project   spring-ecommerce
     @class     RegisterRequest
     @version   1.0.0
     @since     15.11.2025 - 00:52
@@ -14,7 +13,7 @@ public class RegisterRequest {
     private String email;
     private String phone;
     private String password;
-    private UserRole role; // DRIVER або PASSENGER
+    private UserRole role;
 
     public RegisterRequest() {}
 

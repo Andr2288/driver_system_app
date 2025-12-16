@@ -1,7 +1,6 @@
 package com.lab.springecommerce.exception;
 
 /*
-    @project   spring-ecommerce
     @class     GlobalExceptionHandler
     @version   1.0.0
     @since     20.11.2025 - 16:44

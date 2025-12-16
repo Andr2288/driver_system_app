@@ -1,7 +1,6 @@
 package com.lab.springecommerce.controller;
 
 /*
-    @project   spring-ecommerce
     @class     AuthController
     @version   1.0.0
     @since     15.11.2025 - 00:56
@@ -45,7 +44,6 @@ public class AuthController {
     @GetMapping("/check")
     public ResponseEntity<AuthResponse> checkAuth() {
         try {
-            // Отримуємо поточну авторизацію з Security Context
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
             if (authentication == null || !authentication.isAuthenticated()) {
@@ -54,7 +52,6 @@ public class AuthController {
 
             String username = authentication.getName();
 
-            // Знаходимо користувача в базі даних
             Customer customer = customerRepository.findByName(username)
                     .orElse(null);
 
@@ -62,7 +59,6 @@ public class AuthController {
                 return ResponseEntity.status(401).build();
             }
 
-            // Повертаємо дані користувача з роллю
             AuthResponse response = new AuthResponse(null, customer.getName(), customer.getEmail(), customer.getRole());
 
             return ResponseEntity.ok(response);

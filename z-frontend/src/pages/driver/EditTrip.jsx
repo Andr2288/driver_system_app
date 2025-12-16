@@ -25,11 +25,11 @@ const EditTrip = () => {
   }, [fetchMyRoutes]);
 
   useEffect(() => {
-    // Знайти рейс в store
+
     const trip = myTrips.find((t) => t.id === parseInt(id));
     
     if (trip) {
-      // Розділити дату і час
+
       const dateTime = new Date(trip.departureDateTime);
       const date = dateTime.toISOString().split("T")[0];
       const time = dateTime.toTimeString().slice(0, 5);
@@ -48,7 +48,6 @@ const EditTrip = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Об'єднуємо дату і час в ISO формат
     const departureDateTime = `${formData.departureDate}T${formData.departureTime}:00`;
 
     const data = {
@@ -62,18 +61,15 @@ const EditTrip = () => {
       await updateTrip(parseInt(id), data);
       navigate("/driver/dashboard");
     } catch (error) {
-      // Toast handled in store
     }
   };
 
-  // Мінімальна дата - завтра
   const getMinDate = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     return tomorrow.toISOString().split("T")[0];
   };
 
-  // Знайти поточний рейс для відображення інфо
   const currentTrip = myTrips.find((t) => t.id === parseInt(id));
 
   if (loading || routesLoading) {
@@ -115,7 +111,7 @@ const EditTrip = () => {
       <div className="container mx-auto px-4 max-w-2xl">
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body">
-            {/* Header */}
+
             <h2 className="card-title text-3xl font-bold mb-2">
               Редагувати рейс
             </h2>
@@ -124,7 +120,7 @@ const EditTrip = () => {
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Route Selection (read-only для наочності) */}
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-medium">Маршрут</span>
@@ -149,7 +145,6 @@ const EditTrip = () => {
                 </div>
               </div>
 
-              {/* Departure Date */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-medium">
@@ -174,7 +169,6 @@ const EditTrip = () => {
                 </div>
               </div>
 
-              {/* Departure Time */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-medium">
@@ -198,7 +192,6 @@ const EditTrip = () => {
                 </div>
               </div>
 
-              {/* Available Seats */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-medium">
@@ -230,7 +223,6 @@ const EditTrip = () => {
                 </label>
               </div>
 
-              {/* Price Per Seat */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-medium">
@@ -257,7 +249,6 @@ const EditTrip = () => {
                 </div>
               </div>
 
-              {/* Info Alert */}
               <div className="alert alert-info">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -277,7 +268,6 @@ const EditTrip = () => {
                 </span>
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-4">
                 <button
                   type="button"

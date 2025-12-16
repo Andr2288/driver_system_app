@@ -1,7 +1,6 @@
 package com.lab.springecommerce.service;
 
 /*
-    @project   spring-ecommerce
     @class     RouteService
     @version   1.0.0
     @since     12/16/2025 - 21:20
@@ -32,19 +31,15 @@ public class RouteService {
 
     @Transactional
     public RouteResponse createRoute(String driverName, RouteRequest request) {
-        // Валідація
         validateRouteRequest(request);
 
-        // Знайти водія
         Customer driver = customerRepository.findByName(driverName)
                 .orElseThrow(() -> new RuntimeException("Driver not found"));
 
-        // Перевірити що це водій
         if (driver.getRole() != UserRole.DRIVER) {
             throw new RuntimeException("Only drivers can create routes");
         }
 
-        // Створити маршрут
         Route route = new Route();
         route.setDriver(driver);
         route.setStartPoint(request.getStartPoint().trim());
@@ -74,7 +69,6 @@ public class RouteService {
         Route route = routeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Route not found"));
 
-        // Перевірити що це маршрут цього водія
         if (!route.getDriver().getName().equals(driverName)) {
             throw new RuntimeException("You can only delete your own routes");
         }

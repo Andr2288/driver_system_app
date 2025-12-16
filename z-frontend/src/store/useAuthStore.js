@@ -9,7 +9,6 @@ export const useAuthStore = create((set) => ({
     isUpdatingProfile: false,
     isCheckingAuth: true,
 
-    // Перевірка авторизації при завантаженні
     checkAuth: async () => {
         try {
             const res = await axiosInstance.get("/auth/check");
@@ -22,7 +21,6 @@ export const useAuthStore = create((set) => ({
         }
     },
 
-    // Реєстрація
     signup: async (data) => {
         set({ isSigningUp: true });
         try {
@@ -30,7 +28,6 @@ export const useAuthStore = create((set) => ({
             set({ authUser: res.data });
             toast.success("Реєстрація успішна!");
 
-            // Зберігаємо токен в localStorage
             if (res.data.token) {
                 localStorage.setItem("token", res.data.token);
                 axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
@@ -44,7 +41,6 @@ export const useAuthStore = create((set) => ({
         }
     },
 
-    // Вхід
     login: async (data) => {
         set({ isLoggingIn: true });
         try {
@@ -52,7 +48,6 @@ export const useAuthStore = create((set) => ({
             set({ authUser: res.data });
             toast.success("Вхід успішний!");
 
-            // Зберігаємо токен в localStorage
             if (res.data.token) {
                 localStorage.setItem("token", res.data.token);
                 axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;

@@ -24,7 +24,6 @@ const CreateTrip = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Об'єднуємо дату і час в ISO формат
     const departureDateTime = `${formData.departureDate}T${formData.departureTime}:00`;
 
     const data = {
@@ -38,11 +37,9 @@ const CreateTrip = () => {
       await createTrip(data);
       navigate("/driver/dashboard");
     } catch (error) {
-      // Toast handled in store
     }
   };
 
-  // Мінімальна дата - завтра
   const getMinDate = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -54,7 +51,7 @@ const CreateTrip = () => {
       <div className="container mx-auto px-4 max-w-2xl">
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body">
-            {/* Header */}
+
             <h2 className="card-title text-3xl font-bold mb-2">
               Створити рейс
             </h2>
@@ -62,7 +59,6 @@ const CreateTrip = () => {
               Додайте новий рейс на одному з ваших маршрутів
             </p>
 
-            {/* Loading Routes */}
             {routesLoading ? (
               <div className="flex justify-center py-12">
                 <span className="loading loading-spinner loading-lg"></span>
@@ -97,7 +93,7 @@ const CreateTrip = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Route Selection */}
+
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium">
@@ -125,7 +121,6 @@ const CreateTrip = () => {
                   </div>
                 </div>
 
-                {/* Departure Date */}
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium">
@@ -150,7 +145,6 @@ const CreateTrip = () => {
                   </div>
                 </div>
 
-                {/* Departure Time */}
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium">
@@ -174,7 +168,6 @@ const CreateTrip = () => {
                   </div>
                 </div>
 
-                {/* Available Seats */}
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium">
@@ -206,7 +199,6 @@ const CreateTrip = () => {
                   </label>
                 </div>
 
-                {/* Price Per Seat */}
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium">
@@ -233,7 +225,6 @@ const CreateTrip = () => {
                   </div>
                 </div>
 
-                {/* Buttons */}
                 <div className="flex gap-4">
                   <button
                     type="button"

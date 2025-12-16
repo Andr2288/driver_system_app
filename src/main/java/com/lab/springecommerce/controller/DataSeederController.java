@@ -1,7 +1,6 @@
 package com.lab.springecommerce.controller;
 
 /*
-    @project   spring-ecommerce
     @class     DataSeederController
     @version   1.0.0
     @since     12/16/2025 - 20:48

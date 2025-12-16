@@ -1,7 +1,6 @@
 package com.lab.springecommerce.service;
 
 /*
-    @project   spring-ecommerce
     @class     TripService
     @version   1.0.0
     @since     12/16/2025 - 21:21
@@ -36,28 +35,22 @@ public class TripService {
 
     @Transactional
     public TripResponse createTrip(String driverName, TripRequest request) {
-        // Валідація
         validateTripRequest(request);
 
-        // Знайти водія
         Customer driver = customerRepository.findByName(driverName)
                 .orElseThrow(() -> new RuntimeException("Driver not found"));
 
-        // Перевірити що це водій
         if (driver.getRole() != UserRole.DRIVER) {
             throw new RuntimeException("Only drivers can create trips");
         }
 
-        // Знайти маршрут
         Route route = routeRepository.findById(request.getRouteId())
                 .orElseThrow(() -> new RuntimeException("Route not found"));
 
-        // Перевірити що це маршрут цього водія
         if (!route.getDriver().getName().equals(driverName)) {
             throw new RuntimeException("You can only create trips for your own routes");
         }
 
-        // Створити рейс
         Trip trip = new Trip();
         trip.setRoute(route);
         trip.setDriver(driver);
@@ -73,24 +66,19 @@ public class TripService {
 
     @Transactional
     public TripResponse updateTrip(Long id, String driverName, TripRequest request) {
-        // Валідація
         validateTripRequest(request);
 
-        // Знайти рейс
         Trip trip = tripRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Trip not found"));
 
-        // Перевірити що це рейс цього водія
         if (!trip.getDriver().getName().equals(driverName)) {
             throw new RuntimeException("You can only update your own trips");
         }
 
-        // Перевірити статус (можна редагувати тільки заплановані)
         if (trip.getStatus() != TripStatus.PLANNED) {
             throw new RuntimeException("You can only update planned trips");
         }
 
-        // Оновити дані
         trip.setDepartureDateTime(request.getDepartureDateTime());
         trip.setAvailableSeats(request.getAvailableSeats());
         trip.setPricePerSeat(request.getPricePerSeat());
@@ -105,7 +93,6 @@ public class TripService {
         Trip trip = tripRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Trip not found"));
 
-        // Перевірити що це рейс цього водія
         if (!trip.getDriver().getName().equals(driverName)) {
             throw new RuntimeException("You can only delete your own trips");
         }
@@ -125,7 +112,6 @@ public class TripService {
         return mapToResponse(trip);
     }
 
-    // Для попутників
     public List<TripResponse> getAllAvailableTrips() {
         return tripRepository.findAvailableTrips(LocalDateTime.now()).stream()
                 .map(this::mapToResponse)

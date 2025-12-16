@@ -1,7 +1,6 @@
 package com.lab.springecommerce.dto;
 
 /*
-    @project   spring-ecommerce
     @class     TripResponse
     @version   1.0.0
     @since     12/16/2025 - 21:17
@@ -41,7 +40,6 @@ public class TripResponse {
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

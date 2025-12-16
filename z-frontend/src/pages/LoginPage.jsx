@@ -21,7 +21,7 @@ const LoginPage = () => {
         <div className="min-h-screen flex items-center justify-center bg-base-200">
             <div className="card w-full max-w-md bg-base-100 shadow-xl">
                 <div className="card-body">
-                    {/* Header */}
+
                     <h2 className="card-title text-3xl font-bold text-center justify-center mb-2">
                         Вхід
                     </h2>
@@ -29,9 +29,8 @@ const LoginPage = () => {
                         Введіть свої дані для входу
                     </p>
 
-                    {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        {/* Email */}
+
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text font-medium">Email</span>
@@ -51,7 +50,6 @@ const LoginPage = () => {
                             </div>
                         </div>
 
-                        {/* Password */}
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text font-medium">Пароль</span>
@@ -82,7 +80,6 @@ const LoginPage = () => {
                             </div>
                         </div>
 
-                        {/* Submit Button */}
                         <button
                             type="submit"
                             className="btn btn-primary w-full"
@@ -96,10 +93,8 @@ const LoginPage = () => {
                         </button>
                     </form>
 
-                    {/* Divider */}
                     <div className="divider">АБО</div>
 
-                    {/* Sign Up Link */}
                     <p className="text-center text-base-content/60">
                         Немає акаунту?{" "}
                         <Link to="/signup" className="link link-primary font-medium">

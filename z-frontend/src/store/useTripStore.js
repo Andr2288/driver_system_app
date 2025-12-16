@@ -10,7 +10,6 @@ export const useTripStore = create((set) => ({
   isUpdating: false,
   isDeleting: false,
 
-  // Отримати мої рейси (для водія)
   fetchMyTrips: async () => {
     set({ isLoading: true });
     try {
@@ -24,7 +23,6 @@ export const useTripStore = create((set) => ({
     }
   },
 
-  // Отримати всі доступні рейси (для попутника)
   fetchAvailableTrips: async () => {
     set({ isLoading: true });
     try {
@@ -38,7 +36,6 @@ export const useTripStore = create((set) => ({
     }
   },
 
-  // Пошук рейсів (для попутника)
   searchTrips: async (startPoint, endPoint) => {
     set({ isLoading: true });
     try {
@@ -56,7 +53,6 @@ export const useTripStore = create((set) => ({
     }
   },
 
-  // Створити рейс (тільки водій)
   createTrip: async (data) => {
     set({ isCreating: true });
     try {
@@ -73,7 +69,6 @@ export const useTripStore = create((set) => ({
     }
   },
 
-  // Оновити рейс (тільки водій)
   updateTrip: async (id, data) => {
     set({ isUpdating: true });
     try {
@@ -94,7 +89,6 @@ export const useTripStore = create((set) => ({
     }
   },
 
-  // Видалити рейс (тільки водій)
   deleteTrip: async (id) => {
     set({ isDeleting: true });
     try {
@@ -112,6 +106,5 @@ export const useTripStore = create((set) => ({
     }
   },
 
-  // Очистити store
   clearTrips: () => set({ trips: [], myTrips: [] }),
 }));

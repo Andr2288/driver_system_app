@@ -1,7 +1,6 @@
 package com.lab.springecommerce.model;
 
 /*
-    @project   spring-ecommerce
     @class     Trip
     @version   1.0.0
     @since     12/16/2025 - 21:14
@@ -58,7 +57,6 @@ public class Trip {
         this.pricePerSeat = pricePerSeat;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

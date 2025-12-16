@@ -1,7 +1,6 @@
 package com.lab.springecommerce.service;
 
 /*
-    @project   spring-ecommerce
     @class     AuthService
     @version   1.0.0
     @since     15.11.2025 - 00:55
@@ -32,16 +31,13 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    // Email pattern для валідації
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"
     );
 
     public AuthResponse register(RegisterRequest request) {
-        // Валідація запиту
         validateRegisterRequest(request);
 
-        // Check if user already exists
         if (customerRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
@@ -50,14 +46,12 @@ public class AuthService {
             throw new RuntimeException("Username already exists");
         }
 
-        // Create new customer
         Customer customer = new Customer();
         customer.setName(request.getName().trim());
         customer.setEmail(request.getEmail().trim());
         customer.setPhone(request.getPhone() != null ? request.getPhone().trim() : null);
         customer.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        // Встановлюємо роль (якщо не вказана - PASSENGER за замовчуванням)
         if (request.getRole() != null) {
             customer.setRole(request.getRole());
         } else {
@@ -66,38 +60,31 @@ public class AuthService {
 
         customerRepository.save(customer);
 
-        // Generate JWT token
         String token = jwtUtil.generateToken(customer.getName());
 
         return new AuthResponse(token, customer.getName(), customer.getEmail(), customer.getRole());
     }
 
     public AuthResponse login(LoginRequest request) {
-        // Валідація запиту
         validateLoginRequest(request);
 
-        // Find customer by email
         Customer customer = customerRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
 
-        // Check password
         if (!passwordEncoder.matches(request.getPassword(), customer.getPassword())) {
             throw new RuntimeException("Invalid email or password");
         }
 
-        // Generate JWT token
         String token = jwtUtil.generateToken(customer.getName());
 
         return new AuthResponse(token, customer.getName(), customer.getEmail(), customer.getRole());
     }
 
-    // Валідація RegisterRequest
     private void validateRegisterRequest(RegisterRequest request) {
         if (request == null) {
             throw new RuntimeException("Request cannot be null");
         }
 
-        // Валідація name
         if (request.getName() == null || request.getName().trim().isEmpty()) {
             throw new RuntimeException("Name is required");
         }
@@ -108,7 +95,6 @@ public class AuthService {
             throw new RuntimeException("Name must be at most 50 characters");
         }
 
-        // Валідація email
         if (request.getEmail() == null || request.getEmail().trim().isEmpty()) {
             throw new RuntimeException("Email is required");
         }
@@ -119,7 +105,6 @@ public class AuthService {
             throw new RuntimeException("Email format is invalid");
         }
 
-        // Валідація phone (опціональне)
         if (request.getPhone() != null && !request.getPhone().trim().isEmpty()) {
             if (request.getPhone().trim().length() > 255) {
                 throw new RuntimeException("Phone must be at most 255 characters");
@@ -130,7 +115,6 @@ public class AuthService {
             }
         }
 
-        // Валідація password
         if (request.getPassword() == null || request.getPassword().trim().isEmpty()) {
             throw new RuntimeException("Password is required");
         }
@@ -141,7 +125,6 @@ public class AuthService {
             throw new RuntimeException("Password must be at most 100 characters");
         }
 
-        // Валідація role (опціональне, якщо не вказано - буде PASSENGER)
         if (request.getRole() != null) {
             if (request.getRole() != UserRole.DRIVER && request.getRole() != UserRole.PASSENGER) {
                 throw new RuntimeException("Role must be DRIVER or PASSENGER");
@@ -149,13 +132,11 @@ public class AuthService {
         }
     }
 
-    // Валідація LoginRequest
     private void validateLoginRequest(LoginRequest request) {
         if (request == null) {
             throw new RuntimeException("Request cannot be null");
         }
 
-        // Валідація email
         if (request.getEmail() == null || request.getEmail().trim().isEmpty()) {
             throw new RuntimeException("Email is required");
         }
@@ -163,7 +144,6 @@ public class AuthService {
             throw new RuntimeException("Email format is invalid");
         }
 
-        // Валідація password
         if (request.getPassword() == null || request.getPassword().trim().isEmpty()) {
             throw new RuntimeException("Password is required");
         }

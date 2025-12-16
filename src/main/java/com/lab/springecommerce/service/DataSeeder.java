@@ -1,7 +1,6 @@
 package com.lab.springecommerce.service;
 
 /*
-    @project   spring-ecommerce
     @class     DataSeeder
     @version   1.0.0
     @since     12/16/2025 - 20:23
@@ -43,14 +42,11 @@ public class DataSeeder {
         try {
             result.append("🌱 Starting data seeding...\n\n");
 
-            // Створюємо користувачів
             List<Customer> drivers = createDrivers(result);
             List<Customer> passengers = createPassengers(result);
 
-            // Створюємо маршрути
             List<Route> routes = createRoutes(drivers, result);
 
-            // Створюємо рейси
             createTrips(routes, result);
 
             result.append("\n🎉 Data seeding completed successfully!\n");
@@ -80,7 +76,6 @@ public class DataSeeder {
             long routesCount = routeRepository.count();
             long usersCount = customerRepository.count();
 
-            // Видаляємо в правильному порядку (через foreign keys)
             tripRepository.deleteAll();
             result.append("🗑️ Deleted trips: ").append(tripsCount).append("\n");
 
@@ -212,19 +207,15 @@ public class DataSeeder {
     private void createTrips(List<Route> routes, StringBuilder result) {
         result.append("\n🚙 Creating trips...\n");
 
-        // Для кожного маршруту створюємо 2-3 рейси
         LocalDateTime now = LocalDateTime.now();
 
         for (Route route : routes) {
-            // Рейс 1: завтра вранці
             createTrip(route, now.plusDays(1).withHour(9).withMinute(0),
                     3, new BigDecimal("300"), result);
 
-            // Рейс 2: післязавтра ввечері
             createTrip(route, now.plusDays(2).withHour(18).withMinute(0),
                     4, new BigDecimal("350"), result);
 
-            // Рейс 3: через 3 дні опівдні (тільки для перших 6 маршрутів)
             if (routes.indexOf(route) < 6) {
                 createTrip(route, now.plusDays(3).withHour(12).withMinute(0),
                         2, new BigDecimal("400"), result);

@@ -16,7 +16,6 @@ const Navbar = () => {
             <div className="flex-none gap-2">
                 {authUser ? (
                     <>
-                        {/* User info */}
                         <div className="flex items-center gap-2 mr-4">
                             <User className="size-5" />
                             <span className="font-medium">{authUser.name}</span>
@@ -25,7 +24,6 @@ const Navbar = () => {
               </span>
                         </div>
 
-                        {/* Logout button */}
                         <button onClick={logout} className="btn btn-ghost btn-circle">
                             <LogOut className="size-5" />
                         </button>

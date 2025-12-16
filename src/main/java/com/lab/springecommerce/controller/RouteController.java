@@ -1,7 +1,6 @@
 package com.lab.springecommerce.controller;
 
 /*
-    @project   spring-ecommerce
     @class     RouteController
     @version   1.0.0
     @since     12/16/2025 - 22:25
@@ -26,7 +25,6 @@ public class RouteController {
     @Autowired
     private RouteService routeService;
 
-    // Створити маршрут (тільки DRIVER)
     @PostMapping
     public ResponseEntity<RouteResponse> createRoute(@RequestBody RouteRequest request) {
         String driverName = getCurrentUsername();
@@ -34,7 +32,6 @@ public class RouteController {
         return ResponseEntity.ok(response);
     }
 
-    // Отримати мої маршрути
     @GetMapping("/my")
     public ResponseEntity<List<RouteResponse>> getMyRoutes() {
         String driverName = getCurrentUsername();
@@ -42,14 +39,12 @@ public class RouteController {
         return ResponseEntity.ok(routes);
     }
 
-    // Отримати маршрут за ID
     @GetMapping("/{id}")
     public ResponseEntity<RouteResponse> getRouteById(@PathVariable Long id) {
         RouteResponse route = routeService.getRouteById(id);
         return ResponseEntity.ok(route);
     }
 
-    // Видалити маршрут
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRoute(@PathVariable Long id) {
         String driverName = getCurrentUsername();
@@ -57,7 +52,6 @@ public class RouteController {
         return ResponseEntity.noContent().build();
     }
 
-    // Helper method
     private String getCurrentUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {

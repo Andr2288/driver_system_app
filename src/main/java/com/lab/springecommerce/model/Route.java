@@ -1,7 +1,6 @@
 package com.lab.springecommerce.model;
 
 /*
-    @project   spring-ecommerce
     @class     Route
     @version   1.0.0
     @since     12/16/2025 - 21:14
@@ -33,7 +32,7 @@ public class Route {
     private Double distance; // км
 
     @Column(name = "estimated_duration")
-    private Integer estimatedDuration; // хвилини
+    private Integer estimatedDuration;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -49,7 +48,6 @@ public class Route {
         this.endPoint = endPoint;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

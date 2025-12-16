@@ -1,7 +1,6 @@
 package com.lab.springecommerce.dto;
 
 /*
-    @project   spring-ecommerce
     @class     TripRequest
     @version   1.0.0
     @since     12/16/2025 - 21:16
@@ -25,7 +24,6 @@ public class TripRequest {
         this.pricePerSeat = pricePerSeat;
     }
 
-    // Getters and Setters
     public Long getRouteId() {
         return routeId;
     }

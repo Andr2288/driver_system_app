@@ -5,7 +5,6 @@ export const axiosInstance = axios.create({
     withCredentials: true,
 });
 
-// Автоматично додаємо токен до кожного запиту
 axiosInstance.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
@@ -19,7 +18,6 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-// Обробка 401 помилок (невалідний токен)
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {

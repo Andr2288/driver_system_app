@@ -1,7 +1,6 @@
 package com.lab.springecommerce.config;
 
 /*
-    @project   spring-ecommerce
     @class     SecurityConfig
     @version   1.0.1
     @since     19.11.2025 - Fixed seed endpoints order
@@ -46,20 +45,13 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        // PUBLIC - реєстрація та логін доступні всім
                         .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
-                        // PROTECTED - checkAuth потребує JWT токена
                         .requestMatchers(HttpMethod.GET, "/api/auth/check").authenticated()
-                        // PUBLIC - seed endpoints (для розробки)
                         .requestMatchers("/api/admin/seed/**").permitAll()
 
-                        // ROUTES - тільки авторизовані (перевірка ролі в сервісі)
                         .requestMatchers("/api/routes/**").authenticated()
-
-                        // TRIPS - тільки авторизовані (перевірка ролі в сервісі)
                         .requestMatchers("/api/trips/**").authenticated()
 
-                        // Усі інші запити потребують JWT токена
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

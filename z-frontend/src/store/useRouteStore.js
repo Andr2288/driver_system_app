@@ -8,7 +8,6 @@ export const useRouteStore = create((set) => ({
   isCreating: false,
   isDeleting: false,
 
-  // Отримати мої маршрути
   fetchMyRoutes: async () => {
     set({ isLoading: true });
     try {
@@ -22,7 +21,6 @@ export const useRouteStore = create((set) => ({
     }
   },
 
-  // Створити маршрут
   createRoute: async (data) => {
     set({ isCreating: true });
     try {
@@ -39,7 +37,6 @@ export const useRouteStore = create((set) => ({
     }
   },
 
-  // Видалити маршрут
   deleteRoute: async (id) => {
     set({ isDeleting: true });
     try {
@@ -57,6 +54,5 @@ export const useRouteStore = create((set) => ({
     }
   },
 
-  // Очистити store
   clearRoutes: () => set({ routes: [] }),
 }));

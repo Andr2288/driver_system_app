@@ -9,13 +9,11 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 
-// Driver pages
 import DriverDashboard from "./pages/driver/DriverDashboard.jsx";
 import CreateRoute from "./pages/driver/CreateRoute.jsx";
 import CreateTrip from "./pages/driver/CreateTrip.jsx";
 import EditTrip from "./pages/driver/EditTrip.jsx";
 
-// Passenger pages
 import PassengerDashboard from "./pages/passenger/PassengerDashboard.jsx";
 
 import { useAuthStore } from "./store/useAuthStore.js";
@@ -36,7 +34,6 @@ const App = () => {
             <Navbar />
 
             <Routes>
-                {/* Public routes */}
                 <Route
                     path="/signup"
                     element={!authUser ? <SignUpPage /> : <Navigate to="/" />}
@@ -46,7 +43,6 @@ const App = () => {
                     element={!authUser ? <LoginPage /> : <Navigate to="/" />}
                 />
 
-                {/* Home route - redirect based on role */}
                 <Route
                     path="/"
                     element={
@@ -62,7 +58,6 @@ const App = () => {
                     }
                 />
 
-                {/* Driver routes */}
                 <Route
                     path="/driver/dashboard"
                     element={
@@ -96,7 +91,6 @@ const App = () => {
                     }
                 />
 
-                {/* Passenger routes */}
                 <Route
                     path="/passenger/dashboard"
                     element={
@@ -106,7 +100,6 @@ const App = () => {
                     }
                 />
 
-                {/* 404 */}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
 

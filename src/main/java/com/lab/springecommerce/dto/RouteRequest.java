@@ -1,7 +1,6 @@
 package com.lab.springecommerce.dto;
 
 /*
-    @project   spring-ecommerce
     @class     RouteRequest
     @version   1.0.0
     @since     12/16/2025 - 21:15
@@ -22,7 +21,6 @@ public class RouteRequest {
         this.estimatedDuration = estimatedDuration;
     }
 
-    // Getters and Setters
     public String getStartPoint() {
         return startPoint;
     }

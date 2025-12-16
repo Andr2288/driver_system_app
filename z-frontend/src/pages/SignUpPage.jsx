@@ -24,7 +24,7 @@ const SignUpPage = () => {
         <div className="min-h-screen flex items-center justify-center bg-base-200 py-8">
             <div className="card w-full max-w-md bg-base-100 shadow-xl">
                 <div className="card-body">
-                    {/* Header */}
+
                     <h2 className="card-title text-3xl font-bold text-center justify-center mb-2">
                         Реєстрація
                     </h2>
@@ -32,9 +32,8 @@ const SignUpPage = () => {
                         Створіть новий акаунт
                     </p>
 
-                    {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        {/* Role Selection */}
+
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text font-medium">Я хочу бути</span>
@@ -63,7 +62,6 @@ const SignUpPage = () => {
                             </div>
                         </div>
 
-                        {/* Name */}
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text font-medium">Ім'я</span>
@@ -85,7 +83,6 @@ const SignUpPage = () => {
                             </div>
                         </div>
 
-                        {/* Email */}
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text font-medium">Email</span>
@@ -105,7 +102,6 @@ const SignUpPage = () => {
                             </div>
                         </div>
 
-                        {/* Phone */}
                         <div className="form-control">
                             <label className="label">
                 <span className="label-text font-medium">
@@ -126,7 +122,6 @@ const SignUpPage = () => {
                             </div>
                         </div>
 
-                        {/* Password */}
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text font-medium">Пароль</span>
@@ -163,7 +158,6 @@ const SignUpPage = () => {
                             </label>
                         </div>
 
-                        {/* Submit Button */}
                         <button
                             type="submit"
                             className="btn btn-primary w-full"
@@ -177,10 +171,8 @@ const SignUpPage = () => {
                         </button>
                     </form>
 
-                    {/* Divider */}
                     <div className="divider">АБО</div>
 
-                    {/* Login Link */}
                     <p className="text-center text-base-content/60">
                         Вже є акаунт?{" "}
                         <Link to="/login" className="link link-primary font-medium">

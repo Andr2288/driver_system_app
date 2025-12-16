@@ -1,7 +1,6 @@
 package com.lab.springecommerce.model;
 
 /*
-    @project   spring-ecommerce
     @class     Customer
     @version   1.0.0
     @since     15.11.2025 - 00:43
@@ -39,7 +38,7 @@ public class Customer {
 
     public Customer() {
         this.createdAt = LocalDateTime.now();
-        this.role = UserRole.PASSENGER; // default role
+        this.role = UserRole.PASSENGER;
     }
 
     public Customer(String name, String email, String password) {
@@ -49,7 +48,6 @@ public class Customer {
         this.password = password;
     }
 
-    // Getters and Setters
     public String getName() {
         return name;
     }

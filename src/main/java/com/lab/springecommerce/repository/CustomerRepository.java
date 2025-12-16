@@ -1,7 +1,6 @@
 package com.lab.springecommerce.repository;
 
 /*
-    @project   spring-ecommerce
     @class     CustomerRepository
     @version   1.0.0
     @since     15.11.2025 - 00:49

@@ -1,7 +1,6 @@
 package com.lab.springecommerce.dto;
 
 /*
-    @project   spring-ecommerce
     @class     LoginRequest
     @version   1.0.0
     @since     15.11.2025 - 00:53
@@ -18,7 +17,6 @@ public class LoginRequest {
         this.password = password;
     }
 
-    // Getters and Setters
     public String getEmail() {
         return email;
     }

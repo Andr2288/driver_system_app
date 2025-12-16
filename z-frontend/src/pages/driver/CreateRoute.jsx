@@ -30,7 +30,6 @@ const CreateRoute = () => {
       await createRoute(data);
       navigate("/driver/dashboard");
     } catch (error) {
-      // Toast handled in store
     }
   };
 
@@ -39,7 +38,7 @@ const CreateRoute = () => {
       <div className="container mx-auto px-4 max-w-2xl">
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body">
-            {/* Header */}
+
             <h2 className="card-title text-3xl font-bold mb-2">
               Створити маршрут
             </h2>
@@ -47,9 +46,8 @@ const CreateRoute = () => {
               Додайте новий маршрут для ваших рейсів
             </p>
 
-            {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Start Point */}
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-medium">
@@ -72,7 +70,6 @@ const CreateRoute = () => {
                 </div>
               </div>
 
-              {/* End Point */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-medium">
@@ -95,7 +92,6 @@ const CreateRoute = () => {
                 </div>
               </div>
 
-              {/* Distance */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-medium">
@@ -121,7 +117,6 @@ const CreateRoute = () => {
                 </div>
               </div>
 
-              {/* Estimated Duration */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-medium">
@@ -149,7 +144,6 @@ const CreateRoute = () => {
                 </div>
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-4">
                 <button
                   type="button"
