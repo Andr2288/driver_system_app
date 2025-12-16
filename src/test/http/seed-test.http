@@ -1,0 +1,31 @@
+### Manual Data Seeding API Tests
+
+### 1. ✅ Перевірити статус seeder
+GET http://localhost:8080/api/admin/seed/status
+Content-Type: application/json
+
+###
+
+### 2. ✅ Запустити seed (створити дані)
+POST http://localhost:8080/api/admin/seed/run
+Content-Type: application/json
+
+###
+
+### 3. ⚠️ Очистити всі дані (УВАГА!)
+POST http://localhost:8080/api/admin/seed/clear
+Content-Type: application/json
+
+###
+
+### 4. 🔄 Перезапустити seed (очистити + створити дані для бази)
+POST http://localhost:8080/api/admin/seed/reset
+Content-Type: application/json
+
+###
+
+### 5. ✅ Перевірити що дані створилися
+GET http://localhost:8080/api/articles?size=5
+Content-Type: application/json
+
+###
