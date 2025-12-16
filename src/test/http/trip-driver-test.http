@@ -20,7 +20,7 @@ Content-Type: application/json
 
 ### 1. ✅ Створити маршрут (щоб отримати routeId)
 POST http://localhost:8080/api/routes
-Authorization: Bearer YOUR_JWT_TOKEN
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkcml2ZXIxIiwiaWF0IjoxNzY1OTE3MjQ2LCJleHAiOjE3NjYwMDM2NDZ9.OeCRoKQu70ir6X604su54AVxjKcAq_h9z7nBMCZdPzQ
 Content-Type: application/json
 
 {
@@ -36,11 +36,11 @@ Content-Type: application/json
 
 ### 2. ✅ SUCCESS - Створити рейс на завтра о 10:00
 POST http://localhost:8080/api/trips
-Authorization: Bearer YOUR_JWT_TOKEN
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkcml2ZXIxIiwiaWF0IjoxNzY1OTE3MjQ2LCJleHAiOjE3NjYwMDM2NDZ9.OeCRoKQu70ir6X604su54AVxjKcAq_h9z7nBMCZdPzQ
 Content-Type: application/json
 
 {
-  "routeId": 1,
+  "routeId": 27,
   "departureDateTime": "2025-12-17T10:00:00",
   "availableSeats": 3,
   "pricePerSeat": 350.00
@@ -64,7 +64,7 @@ Content-Type: application/json
 
 ### 4. ✅ SUCCESS - Отримати мої рейси
 GET http://localhost:8080/api/trips/my
-Authorization: Bearer YOUR_JWT_TOKEN
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkcml2ZXIxIiwiaWF0IjoxNzY1OTE3MjQ2LCJleHAiOjE3NjYwMDM2NDZ9.OeCRoKQu70ir6X604su54AVxjKcAq_h9z7nBMCZdPzQ
 
 ###
 
