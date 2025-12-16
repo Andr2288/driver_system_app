@@ -94,7 +94,7 @@ const PassengerDashboard = () => {
                     <span className="label-text font-medium">Початкова точка</span>
                   </label>
                   <div className="relative">
-                    <MapPin className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                    <MapPin className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                     <input
                       type="text"
                       placeholder="Київ, Харків..."
@@ -115,7 +115,7 @@ const PassengerDashboard = () => {
                     <span className="label-text font-medium">Кінцева точка</span>
                   </label>
                   <div className="relative">
-                    <MapPin className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                    <MapPin className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                     <input
                       type="text"
                       placeholder="Львів, Одеса..."

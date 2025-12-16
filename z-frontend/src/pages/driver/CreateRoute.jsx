@@ -55,7 +55,7 @@ const CreateRoute = () => {
                   </span>
                 </label>
                 <div className="relative">
-                  <MapPin className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                  <MapPin className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                   <input
                     type="text"
                     placeholder="Київ"
@@ -77,7 +77,7 @@ const CreateRoute = () => {
                   </span>
                 </label>
                 <div className="relative">
-                  <ArrowRight className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                  <ArrowRight className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                   <input
                     type="text"
                     placeholder="Львів"
@@ -102,7 +102,7 @@ const CreateRoute = () => {
                   </span>
                 </label>
                 <div className="relative">
-                  <Ruler className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                  <Ruler className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                   <input
                     type="number"
                     step="0.1"
@@ -127,7 +127,7 @@ const CreateRoute = () => {
                   </span>
                 </label>
                 <div className="relative">
-                  <Clock className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                  <Clock className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                   <input
                     type="number"
                     min="0"

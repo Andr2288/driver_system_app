@@ -128,7 +128,7 @@ const CreateTrip = () => {
                     </span>
                   </label>
                   <div className="relative">
-                    <Calendar className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                    <Calendar className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                     <input
                       type="date"
                       className="input input-bordered w-full pl-10"
@@ -152,7 +152,7 @@ const CreateTrip = () => {
                     </span>
                   </label>
                   <div className="relative">
-                    <Calendar className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                    <Calendar className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                     <input
                       type="time"
                       className="input input-bordered w-full pl-10"
@@ -175,7 +175,7 @@ const CreateTrip = () => {
                     </span>
                   </label>
                   <div className="relative">
-                    <Users className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                    <Users className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                     <input
                       type="number"
                       min="1"
@@ -206,7 +206,7 @@ const CreateTrip = () => {
                     </span>
                   </label>
                   <div className="relative">
-                    <DollarSign className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                    <DollarSign className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                     <input
                       type="number"
                       step="0.01"
