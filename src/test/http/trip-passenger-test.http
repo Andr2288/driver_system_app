@@ -1,0 +1,106 @@
+### Trip API Tests - Passenger Endpoints
+
+### ВАЖЛИВО:
+### 1. Спочатку водій має створити маршрути та рейси (використай trip-driver-test.http)
+### 2. Потім попутник може шукати та переглядати рейси
+
+### 0. Логін попутника для отримання токена
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "passenger1@example.com",
+  "password": "passenger123"
+}
+
+### Скопіюй token і підстав в наступні запити
+
+###
+
+### 1. ✅ SUCCESS - Отримати всі доступні рейси
+GET http://localhost:8080/api/trips
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 2. ✅ SUCCESS - Пошук рейсів за початковою точкою
+GET http://localhost:8080/api/trips/search?startPoint=Київ
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 3. ✅ SUCCESS - Пошук рейсів за кінцевою точкою
+GET http://localhost:8080/api/trips/search?endPoint=Львів
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 4. ✅ SUCCESS - Пошук рейсів за початковою та кінцевою точкою
+GET http://localhost:8080/api/trips/search?startPoint=Київ&endPoint=Львів
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 5. ✅ SUCCESS - Пошук рейсів (часткове співпадіння)
+GET http://localhost:8080/api/trips/search?startPoint=Ки&endPoint=Льв
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 6. ✅ SUCCESS - Отримати деталі рейсу за ID
+GET http://localhost:8080/api/trips/1
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 7. ❌ FAIL - Попутник намагається створити рейс
+POST http://localhost:8080/api/trips
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "routeId": 1,
+  "departureDateTime": "2025-12-17T10:00:00",
+  "availableSeats": 3,
+  "pricePerSeat": 350.00
+}
+
+###
+
+### 8. ❌ FAIL - Попутник намагається редагувати рейс
+PUT http://localhost:8080/api/trips/1
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "routeId": 1,
+  "departureDateTime": "2025-12-17T10:00:00",
+  "availableSeats": 2,
+  "pricePerSeat": 300.00
+}
+
+###
+
+### 9. ❌ FAIL - Попутник намагається видалити рейс
+DELETE http://localhost:8080/api/trips/1
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 10. ❌ FAIL - Пошук рейсів без токена
+GET http://localhost:8080/api/trips/search?startPoint=Київ&endPoint=Львів
+
+###
+
+### Очікувані результати:
+### 1: Статус 200, масив доступних рейсів (PLANNED, availableSeats > 0, дата в майбутньому)
+### 2-5: Статус 200, відфільтровані рейси
+### 6: Статус 200, JSON з деталями рейсу
+### 7-9: Статус 400 (Bad Request) - "Only drivers can..."
+### 10: Статус 401 (Unauthorized)
+###
+### Примітка: Відповідь включає:
+### - id, routeId, startPoint, endPoint
+### - driverName (ім'я водія)
+### - departureDateTime, availableSeats, pricePerSeat
+### - status (PLANNED/ACTIVE/COMPLETED/CANCELLED)

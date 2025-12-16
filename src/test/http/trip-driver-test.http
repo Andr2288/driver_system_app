@@ -1,0 +1,197 @@
+### Trip API Tests - Driver Endpoints
+
+### ВАЖЛИВО: 
+### 1. Спочатку потрібно залогінитись як водій
+### 2. Створити маршрут (route)
+### 3. Використати routeId для створення рейсу (trip)
+
+### 0. Логін водія для отримання токена
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "driver1@example.com",
+  "password": "driver123"
+}
+
+### Скопіюй token і підстав в наступні запити
+
+###
+
+### 1. ✅ Створити маршрут (щоб отримати routeId)
+POST http://localhost:8080/api/routes
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "startPoint": "Київ",
+  "endPoint": "Львів",
+  "distance": 540.5,
+  "estimatedDuration": 360
+}
+
+### Скопіюй "id" з відповіді і використай як routeId в наступних запитах
+
+###
+
+### 2. ✅ SUCCESS - Створити рейс на завтра о 10:00
+POST http://localhost:8080/api/trips
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "routeId": 1,
+  "departureDateTime": "2025-12-17T10:00:00",
+  "availableSeats": 3,
+  "pricePerSeat": 350.00
+}
+
+###
+
+### 3. ✅ SUCCESS - Створити рейс на післязавтра о 15:00
+POST http://localhost:8080/api/trips
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "routeId": 1,
+  "departureDateTime": "2025-12-18T15:00:00",
+  "availableSeats": 4,
+  "pricePerSeat": 400.00
+}
+
+###
+
+### 4. ✅ SUCCESS - Отримати мої рейси
+GET http://localhost:8080/api/trips/my
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 5. ✅ SUCCESS - Редагувати рейс (змінити ціну та кількість місць)
+PUT http://localhost:8080/api/trips/1
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "routeId": 1,
+  "departureDateTime": "2025-12-17T10:00:00",
+  "availableSeats": 2,
+  "pricePerSeat": 300.00
+}
+
+###
+
+### 6. ✅ SUCCESS - Отримати рейс за ID
+GET http://localhost:8080/api/trips/1
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 7. ✅ SUCCESS - Видалити рейс
+DELETE http://localhost:8080/api/trips/1
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 8. ❌ FAIL - Створити рейс без routeId
+POST http://localhost:8080/api/trips
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "departureDateTime": "2025-12-17T10:00:00",
+  "availableSeats": 3,
+  "pricePerSeat": 350.00
+}
+
+###
+
+### 9. ❌ FAIL - Створити рейс з датою в минулому
+POST http://localhost:8080/api/trips
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "routeId": 1,
+  "departureDateTime": "2020-01-01T10:00:00",
+  "availableSeats": 3,
+  "pricePerSeat": 350.00
+}
+
+###
+
+### 10. ❌ FAIL - Створити рейс з 0 місць
+POST http://localhost:8080/api/trips
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "routeId": 1,
+  "departureDateTime": "2025-12-17T10:00:00",
+  "availableSeats": 0,
+  "pricePerSeat": 350.00
+}
+
+###
+
+### 11. ❌ FAIL - Створити рейс з 10 місць (більше 8)
+POST http://localhost:8080/api/trips
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "routeId": 1,
+  "departureDateTime": "2025-12-17T10:00:00",
+  "availableSeats": 10,
+  "pricePerSeat": 350.00
+}
+
+###
+
+### 12. ❌ FAIL - Створити рейс з від'ємною ціною
+POST http://localhost:8080/api/trips
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "routeId": 1,
+  "departureDateTime": "2025-12-17T10:00:00",
+  "availableSeats": 3,
+  "pricePerSeat": -100.00
+}
+
+###
+
+### 13. ❌ FAIL - Створити рейс на чужому маршруті
+### Спочатку залогінься як інший водій:
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "driver2@example.com",
+  "password": "driver123"
+}
+
+### Потім спробуй створити рейс на маршруті driver1:
+POST http://localhost:8080/api/trips
+Authorization: Bearer DRIVER2_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "routeId": 1,
+  "departureDateTime": "2025-12-17T10:00:00",
+  "availableSeats": 3,
+  "pricePerSeat": 350.00
+}
+
+###
+
+### Очікувані результати:
+### 1: Статус 200, JSON з маршрутом (збережи id)
+### 2-3: Статус 200, JSON з даними рейсу (id, routeId, startPoint, endPoint, status: PLANNED)
+### 4: Статус 200, масив рейсів водія
+### 5: Статус 200, JSON з оновленими даними
+### 6: Статус 200, JSON з даними рейсу
+### 7: Статус 204 (No Content)
+### 8-13: Статус 400 (Bad Request)

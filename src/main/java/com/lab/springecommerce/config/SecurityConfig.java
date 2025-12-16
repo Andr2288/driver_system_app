@@ -53,6 +53,12 @@ public class SecurityConfig {
                         // PUBLIC - seed endpoints (для розробки)
                         .requestMatchers("/api/admin/seed/**").permitAll()
 
+                        // ROUTES - тільки авторизовані (перевірка ролі в сервісі)
+                        .requestMatchers("/api/routes/**").authenticated()
+
+                        // TRIPS - тільки авторизовані (перевірка ролі в сервісі)
+                        .requestMatchers("/api/trips/**").authenticated()
+
                         // Усі інші запити потребують JWT токена
                         .anyRequest().authenticated()
                 )

@@ -1,0 +1,149 @@
+### Route API Tests - Driver Endpoints
+
+### ВАЖЛИВО: Спочатку потрібно залогінитись як водій і отримати токен!
+
+### 0. Логін водія для отримання токена
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "driver1@example.com",
+  "password": "driver123"
+}
+
+### Скопіюй token з відповіді і підстав його в наступні запити замість YOUR_JWT_TOKEN
+
+###
+
+### 1. ✅ SUCCESS - Створити маршрут Київ → Львів
+POST http://localhost:8080/api/routes
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "startPoint": "Київ",
+  "endPoint": "Львів",
+  "distance": 540.5,
+  "estimatedDuration": 360
+}
+
+###
+
+### 2. ✅ SUCCESS - Створити маршрут Харків → Одеса
+POST http://localhost:8080/api/routes
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "startPoint": "Харків",
+  "endPoint": "Одеса",
+  "distance": 480.0,
+  "estimatedDuration": 320
+}
+
+###
+
+### 3. ✅ SUCCESS - Створити маршрут без distance та duration (опційні поля)
+POST http://localhost:8080/api/routes
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "startPoint": "Дніпро",
+  "endPoint": "Запоріжжя"
+}
+
+###
+
+### 4. ✅ SUCCESS - Отримати мої маршрути
+GET http://localhost:8080/api/routes/my
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 5. ✅ SUCCESS - Отримати маршрут за ID (замінь {id} на реальний ID з попереднього запиту)
+GET http://localhost:8080/api/routes/1
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 6. ✅ SUCCESS - Видалити маршрут (замінь {id} на реальний ID)
+DELETE http://localhost:8080/api/routes/1
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 7. ❌ FAIL - Створити маршрут без startPoint
+POST http://localhost:8080/api/routes
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "endPoint": "Львів"
+}
+
+###
+
+### 8. ❌ FAIL - Створити маршрут без endPoint
+POST http://localhost:8080/api/routes
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "startPoint": "Київ"
+}
+
+###
+
+### 9. ❌ FAIL - Створити маршрут з від'ємною відстанню
+POST http://localhost:8080/api/routes
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "startPoint": "Київ",
+  "endPoint": "Львів",
+  "distance": -100.0
+}
+
+###
+
+### 10. ❌ FAIL - Створити маршрут без токена
+POST http://localhost:8080/api/routes
+Content-Type: application/json
+
+{
+  "startPoint": "Київ",
+  "endPoint": "Львів"
+}
+
+###
+
+### 11. ❌ FAIL - Попутник намагається створити маршрут
+### Спочатку залогінься як попутник:
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "passenger1@example.com",
+  "password": "passenger123"
+}
+
+### Потім спробуй створити маршрут з токеном попутника:
+POST http://localhost:8080/api/routes
+Authorization: Bearer PASSENGER_JWT_TOKEN
+Content-Type: application/json
+
+{
+  "startPoint": "Київ",
+  "endPoint": "Львів"
+}
+
+###
+
+### Очікувані результати:
+### 1-3: Статус 200, JSON з даними маршруту (id, driverName, startPoint, endPoint...)
+### 4: Статус 200, масив маршрутів водія
+### 5: Статус 200, JSON з даними маршруту
+### 6: Статус 204 (No Content)
+### 7-11: Статус 400 (Bad Request) або 401 (Unauthorized)
