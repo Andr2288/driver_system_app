@@ -69,7 +69,7 @@ const SignUpPage = () => {
                                 <span className="label-text font-medium">Ім'я</span>
                             </label>
                             <div className="relative">
-                                <User className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                                <User className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                                 <input
                                     type="text"
                                     placeholder="Іван"
@@ -91,7 +91,7 @@ const SignUpPage = () => {
                                 <span className="label-text font-medium">Email</span>
                             </label>
                             <div className="relative">
-                                <Mail className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                                <Mail className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                                 <input
                                     type="email"
                                     placeholder="name@example.com"
@@ -113,7 +113,7 @@ const SignUpPage = () => {
                 </span>
                             </label>
                             <div className="relative">
-                                <Phone className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                                <Phone className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                                 <input
                                     type="tel"
                                     placeholder="+380501234567"
@@ -132,7 +132,7 @@ const SignUpPage = () => {
                                 <span className="label-text font-medium">Пароль</span>
                             </label>
                             <div className="relative">
-                                <Lock className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                                <Lock className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     placeholder="••••••••"

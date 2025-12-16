@@ -37,7 +37,7 @@ const LoginPage = () => {
                                 <span className="label-text font-medium">Email</span>
                             </label>
                             <div className="relative">
-                                <Mail className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                                <Mail className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                                 <input
                                     type="email"
                                     placeholder="name@example.com"
@@ -57,7 +57,7 @@ const LoginPage = () => {
                                 <span className="label-text font-medium">Пароль</span>
                             </label>
                             <div className="relative">
-                                <Lock className="absolute left-3 top-3.5 size-5 text-base-content/40" />
+                                <Lock className="absolute left-3 top-3.5 size-5 text-base-content/40 z-10" />
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     placeholder="••••••••"

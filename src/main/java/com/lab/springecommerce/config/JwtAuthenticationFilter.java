@@ -44,12 +44,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 username = jwtUtil.extractUsername(token);
             } catch (Exception e) {
-                // Токен недійсний
                 logger.debug("Invalid JWT token: " + e.getMessage());
             }
         }
 
-        // Якщо токен валідний і користувач не авторизований
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             
             if (jwtUtil.validateToken(token, username)) {
