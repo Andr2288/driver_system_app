@@ -33,8 +33,13 @@ public class Customer {
     @Column(name = "image_url", length = 500)
     private String imageUrl;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserRole role;
+
     public Customer() {
         this.createdAt = LocalDateTime.now();
+        this.role = UserRole.PASSENGER; // default role
     }
 
     public Customer(String name, String email, String password) {
@@ -91,5 +96,13 @@ public class Customer {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }

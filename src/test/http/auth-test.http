@@ -1,78 +1,108 @@
-### E-commerce Spring Boot API Tests
+### Carpooling Spring Boot API - Auth Tests with Roles
 
-### 1. ✅ SUCCESS - Реєстрація нового користувача
+### 1. ✅ SUCCESS - Реєстрація ВОДІЯ (DRIVER)
 POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "testuser",
-  "email": "test@example.com",
+  "name": "driver1",
+  "email": "driver1@example.com",
   "phone": "+380501234567",
-  "password": "password123"
+  "password": "driver123",
+  "role": "DRIVER"
 }
 
 ###
 
-### 2. ✅ SUCCESS - Реєстрація адміна (якщо ще не існує)
+### 2. ✅ SUCCESS - Реєстрація ПОПУТНИКА (PASSENGER)
 POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "admin",
-  "email": "admin@example.com",
+  "name": "passenger1",
+  "email": "passenger1@example.com",
   "phone": "+380507654321",
-  "password": "admin123"
+  "password": "passenger123",
+  "role": "PASSENGER"
 }
 
 ###
 
-### 3. ✅ SUCCESS - Логін користувача (повертає JWT токен)
+### 3. ✅ SUCCESS - Реєстрація без вказання ролі (за замовчуванням PASSENGER)
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "passenger2",
+  "email": "passenger2@example.com",
+  "phone": "+380509999999",
+  "password": "passenger456"
+}
+
+###
+
+### 4. ✅ SUCCESS - Логін ВОДІЯ (повертає JWT токен + role: DRIVER)
 POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "test@example.com",
-  "password": "password123"
+  "email": "driver1@example.com",
+  "password": "driver123"
 }
 
 ###
 
-### 4. ✅ SUCCESS - Логін адміна (повертає JWT токен + isAdmin: true)
+### 5. ✅ SUCCESS - Логін ПОПУТНИКА (повертає JWT токен + role: PASSENGER)
 POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "admin@example.com",
-  "password": "admin123"
+  "email": "passenger1@example.com",
+  "password": "passenger123"
 }
 
 ###
 
-### 5. ❌ FAIL - Реєстрація з існуючим email (повинен повернути помилку)
+### 6. ❌ FAIL - Реєстрація з існуючим email
 POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
   "name": "duplicate",
-  "email": "test@example.com",
-  "phone": "+380509999999",
-  "password": "password456"
+  "email": "driver1@example.com",
+  "phone": "+380501111111",
+  "password": "password456",
+  "role": "DRIVER"
 }
 
 ###
 
-### 6. ❌ FAIL - Логін з неправильним паролем
+### 7. ❌ FAIL - Реєстрація з існуючим ім'ям користувача
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "driver1",
+  "email": "different@example.com",
+  "phone": "+380502222222",
+  "password": "password789",
+  "role": "PASSENGER"
+}
+
+###
+
+### 8. ❌ FAIL - Логін з неправильним паролем
 POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "test@example.com",
+  "email": "driver1@example.com",
   "password": "wrongpassword"
 }
 
 ###
 
-### 7. ❌ FAIL - Логін з неіснуючим email
+### 9. ❌ FAIL - Логін з неіснуючим email
 POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
@@ -83,23 +113,50 @@ Content-Type: application/json
 
 ###
 
-### 8. ❌ FAIL - Реєстрація з існуючим ім'ям користувача
+### 10. ❌ FAIL - Реєстрація без обов'язкових полів
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "",
+  "email": "test@example.com",
+  "password": ""
+}
+
+###
+
+### 11. ❌ FAIL - Реєстрація з невалідним email
 POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
   "name": "testuser",
-  "email": "different@example.com",
-  "phone": "+380501111111",
-  "password": "password789"
+  "email": "invalid-email",
+  "phone": "+380501234567",
+  "password": "password123",
+  "role": "DRIVER"
+}
+
+###
+
+### 12. ❌ FAIL - Реєстрація з коротким паролем
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "testuser",
+  "email": "test@example.com",
+  "phone": "+380501234567",
+  "password": "123",
+  "role": "PASSENGER"
 }
 
 ###
 
 ### Очікувані результати:
-### 1-4: Статус 200, JSON з token, name, email, isAdmin
-### 5-8: Статус 400 (Bad Request)
+### 1-5: Статус 200, JSON з token, name, email, role
+### 6-12: Статус 400 (Bad Request) з повідомленням про помилку
 ### 
-### Зверни увагу на поле "isAdmin": 
-### - true для користувача з name="admin"
-### - false для всіх інших користувачів
+### Зверни увагу на поле "role": 
+### - "DRIVER" для водіїв
+### - "PASSENGER" для попутників (або якщо не вказано)

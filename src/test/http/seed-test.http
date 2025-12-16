@@ -1,4 +1,4 @@
-### Manual Data Seeding API Tests
+### Data Seeding API Tests
 
 ### 1. ✅ Перевірити статус seeder
 GET http://localhost:8080/api/admin/seed/status
@@ -6,7 +6,7 @@ Content-Type: application/json
 
 ###
 
-### 2. ✅ Запустити seed (створити дані)
+### 2. ✅ Запустити seed (створити тестових користувачів)
 POST http://localhost:8080/api/admin/seed/run
 Content-Type: application/json
 
@@ -18,14 +18,44 @@ Content-Type: application/json
 
 ###
 
-### 4. 🔄 Перезапустити seed (очистити + створити дані для бази)
+### 4. 🔄 Перезапустити seed (очистити + створити дані)
 POST http://localhost:8080/api/admin/seed/reset
 Content-Type: application/json
 
 ###
 
-### 5. ✅ Перевірити що дані створилися
-GET http://localhost:8080/api/articles?size=5
+### 5. ✅ Перевірити що користувачі створилися - Логін driver1
+POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
+{
+  "email": "driver1@example.com",
+  "password": "driver123"
+}
+
 ###
+
+### 6. ✅ Перевірити що користувачі створилися - Логін passenger1
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "passenger1@example.com",
+  "password": "passenger123"
+}
+
+###
+
+### Створені користувачі після seed:
+### 
+### ВОДІЇ (DRIVER):
+### - driver1@example.com / driver123
+### - driver2@example.com / driver123
+### - driver3@example.com / driver123
+###
+### ПОПУТНИКИ (PASSENGER):
+### - passenger1@example.com / passenger123
+### - passenger2@example.com / passenger123
+### - passenger3@example.com / passenger123
+###
+### Усього: 6 користувачів (3 водії + 3 попутники)

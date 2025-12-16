@@ -32,14 +32,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
-        // Валідація буде у AuthService, а помилки - у GlobalExceptionHandler
         AuthResponse response = authService.register(request);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
-        // Валідація буде у AuthService, а помилки - у GlobalExceptionHandler
         AuthResponse response = authService.login(request);
         return ResponseEntity.ok(response);
     }
@@ -64,9 +62,8 @@ public class AuthController {
                 return ResponseEntity.status(401).build();
             }
 
-            // Повертаємо дані користувача (без токена, бо він вже є)
-            boolean isAdmin = "admin".equals(customer.getName());
-            AuthResponse response = new AuthResponse(null, customer.getName(), customer.getEmail(), isAdmin);
+            // Повертаємо дані користувача з роллю
+            AuthResponse response = new AuthResponse(null, customer.getName(), customer.getEmail(), customer.getRole());
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {

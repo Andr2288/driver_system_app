@@ -1,29 +1,55 @@
-### Auth Check API Test
+### Auth Check API Test - Roles Support
 
-### 1. ✅ Логін для отримання токена
+### 1. ✅ Логін ВОДІЯ для отримання токена
 POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "admin@example.com",
-  "password": "admin123"
+  "email": "driver1@example.com",
+  "password": "driver123"
 }
 
 ### Скопіюй token з відповіді вище і підстав в наступний запит
 
-### 2. ✅ Перевірити токен (замінь YOUR_JWT_TOKEN_HERE)
+### 2. ✅ Перевірити токен ВОДІЯ (замінь YOUR_JWT_TOKEN_HERE)
 GET http://localhost:8080/api/auth/check
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2MzMzODQ2NywiZXhwIjoxNzYzNDI0ODY3fQ.QhpkoIcZWS2ySVRRCiWy3sPfCcYZVMw-1FTIhzb0a6o
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkcml2ZXIxIiwiaWF0IjoxNzY1OTExNDExLCJleHAiOjE3NjU5OTc4MTF9.nnPr_RkOqFuZHRiPtRXr1rOcm4qVbVdIpyAsfMyDmDE
 
 ###
 
-### 3. ❌ Перевірити без токена (має повернути 401)
+### 3. ✅ Логін ПОПУТНИКА для отримання токена
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "passenger1@example.com",
+  "password": "passenger123"
+}
+
+### Скопіюй token з відповіді вище і підстав в наступний запит
+
+### 4. ✅ Перевірити токен ПОПУТНИКА (замінь YOUR_JWT_TOKEN_HERE)
+GET http://localhost:8080/api/auth/check
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXNzZW5nZXIxIiwiaWF0IjoxNzY1OTExNDc2LCJleHAiOjE3NjU5OTc4NzZ9.7d8S-oqKxeailBuiFMVIMeQoUSlmnWWd-N7QCiP_za0
+
+###
+
+### 5. ❌ Перевірити без токена (має повернути 401)
 GET http://localhost:8080/api/auth/check
 
 ###
 
-### 4. ❌ Перевірити з неправильним токеном (має повернути 401)
+### 6. ❌ Перевірити з неправильним токеном (має повернути 401)
 GET http://localhost:8080/api/auth/check
 Authorization: Bearer invalid.token.here
 
 ###
+
+### Очікувані результати:
+### 1, 3: Статус 200, JSON з token, name, email, role
+### 2, 4: Статус 200, JSON з name, email, role (без токена)
+### 5, 6: Статус 401 (Unauthorized)
+###
+### Поле "role" має бути:
+### - "DRIVER" для водія
+### - "PASSENGER" для попутника

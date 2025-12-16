@@ -4,10 +4,10 @@ package com.lab.springecommerce.controller;
     @project   spring-ecommerce
     @class     DataSeederController
     @version   1.0.0
-    @since     17.11.2025
+    @since     12/16/2025 - 20:48
 */
 
-import com.lab.springecommerce.service.ManualDataSeeder;
+import com.lab.springecommerce.service.DataSeeder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.*;
 public class DataSeederController {
 
     @Autowired
-    private ManualDataSeeder manualDataSeeder;
+    private DataSeeder dataSeeder;
 
     @PostMapping("/run")
     public ResponseEntity<String> seedData() {
         try {
-            String result = manualDataSeeder.seedData();
+            String result = dataSeeder.seedData();
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -33,7 +33,7 @@ public class DataSeederController {
     @PostMapping("/clear")
     public ResponseEntity<String> clearData() {
         try {
-            String result = manualDataSeeder.clearData();
+            String result = dataSeeder.clearData();
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -43,7 +43,7 @@ public class DataSeederController {
     @PostMapping("/reset")
     public ResponseEntity<String> resetData() {
         try {
-            String result = manualDataSeeder.resetData();
+            String result = dataSeeder.resetData();
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -52,10 +52,9 @@ public class DataSeederController {
 
     @GetMapping("/status")
     public ResponseEntity<String> getStatus() {
-        // Простий статус без залежностей від репозиторіїв тут
         return ResponseEntity.ok("Seeder endpoints available:\n" +
-                "POST /api/admin/seed/run - Create initial data\n" +
-                "POST /api/admin/seed/clear - Delete all data\n" +
+                "POST /api/admin/seed/run - Create test users (3 drivers + 3 passengers)\n" +
+                "POST /api/admin/seed/clear - Delete all users\n" +
                 "POST /api/admin/seed/reset - Clear + Seed\n" +
                 "GET /api/admin/seed/status - This message");
     }

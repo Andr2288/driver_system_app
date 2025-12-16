@@ -7,19 +7,21 @@ package com.lab.springecommerce.dto;
     @since     15.11.2025 - 00:53
 */
 
+import com.lab.springecommerce.model.UserRole;
+
 public class AuthResponse {
     private String token;
     private String name;
     private String email;
-    private boolean isAdmin;
+    private UserRole role; // DRIVER або PASSENGER
 
     public AuthResponse() {}
 
-    public AuthResponse(String token, String name, String email, boolean isAdmin) {
+    public AuthResponse(String token, String name, String email, UserRole role) {
         this.token = token;
         this.name = name;
         this.email = email;
-        this.isAdmin = isAdmin;
+        this.role = role;
     }
 
     // Getters and Setters
@@ -47,11 +49,11 @@ public class AuthResponse {
         this.email = email;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public UserRole getRole() {
+        return role;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }

@@ -7,19 +7,23 @@ package com.lab.springecommerce.dto;
     @since     15.11.2025 - 00:52
 */
 
+import com.lab.springecommerce.model.UserRole;
+
 public class RegisterRequest {
     private String name;
     private String email;
     private String phone;
     private String password;
+    private UserRole role; // DRIVER або PASSENGER
 
     public RegisterRequest() {}
 
-    public RegisterRequest(String name, String email, String phone, String password) {
+    public RegisterRequest(String name, String email, String phone, String password, UserRole role) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.role = role;
     }
 
     public String getName() {
@@ -52,5 +56,13 @@ public class RegisterRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }

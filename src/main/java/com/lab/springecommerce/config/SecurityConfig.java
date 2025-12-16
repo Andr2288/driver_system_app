@@ -43,7 +43,6 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // ПРИБИРАЄМО всі форми авторизації що показують popup
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
@@ -51,12 +50,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
                         // PROTECTED - checkAuth потребує JWT токена
                         .requestMatchers(HttpMethod.GET, "/api/auth/check").authenticated()
+                        // PUBLIC - seed endpoints (для розробки)
                         .requestMatchers("/api/admin/seed/**").permitAll()
 
                         // Усі інші запити потребують JWT токена
                         .anyRequest().authenticated()
                 )
-                // Додаємо JWT фільтр
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

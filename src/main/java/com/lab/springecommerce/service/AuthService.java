@@ -11,6 +11,7 @@ import com.lab.springecommerce.dto.AuthResponse;
 import com.lab.springecommerce.dto.LoginRequest;
 import com.lab.springecommerce.dto.RegisterRequest;
 import com.lab.springecommerce.model.Customer;
+import com.lab.springecommerce.model.UserRole;
 import com.lab.springecommerce.repository.CustomerRepository;
 import com.lab.springecommerce.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class AuthService {
 
     // Email pattern для валідації
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
-        "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"
+            "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"
     );
 
     public AuthResponse register(RegisterRequest request) {
@@ -56,15 +57,19 @@ public class AuthService {
         customer.setPhone(request.getPhone() != null ? request.getPhone().trim() : null);
         customer.setPassword(passwordEncoder.encode(request.getPassword()));
 
+        // Встановлюємо роль (якщо не вказана - PASSENGER за замовчуванням)
+        if (request.getRole() != null) {
+            customer.setRole(request.getRole());
+        } else {
+            customer.setRole(UserRole.PASSENGER);
+        }
+
         customerRepository.save(customer);
 
         // Generate JWT token
         String token = jwtUtil.generateToken(customer.getName());
 
-        // Check if admin
-        boolean isAdmin = "admin".equals(customer.getName());
-
-        return new AuthResponse(token, customer.getName(), customer.getEmail(), isAdmin);
+        return new AuthResponse(token, customer.getName(), customer.getEmail(), customer.getRole());
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -83,10 +88,7 @@ public class AuthService {
         // Generate JWT token
         String token = jwtUtil.generateToken(customer.getName());
 
-        // Check if admin
-        boolean isAdmin = "admin".equals(customer.getName());
-
-        return new AuthResponse(token, customer.getName(), customer.getEmail(), isAdmin);
+        return new AuthResponse(token, customer.getName(), customer.getEmail(), customer.getRole());
     }
 
     // Валідація RegisterRequest
@@ -137,6 +139,13 @@ public class AuthService {
         }
         if (request.getPassword().length() > 100) {
             throw new RuntimeException("Password must be at most 100 characters");
+        }
+
+        // Валідація role (опціональне, якщо не вказано - буде PASSENGER)
+        if (request.getRole() != null) {
+            if (request.getRole() != UserRole.DRIVER && request.getRole() != UserRole.PASSENGER) {
+                throw new RuntimeException("Role must be DRIVER or PASSENGER");
+            }
         }
     }
 
